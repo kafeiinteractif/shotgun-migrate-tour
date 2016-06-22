@@ -1,1134 +1,649 @@
-# reveal.js [![Build Status](https://travis-ci.org/hakimel/reveal.js.svg?branch=master)](https://travis-ci.org/hakimel/reveal.js) <a href="https://slides.com?ref=github"><img src="https://s3.amazonaws.com/static.slid.es/images/slides-github-banner-320x40.png?1" alt="Slides" width="160" height="20"></a>
-
-A framework for easily creating beautiful presentations using HTML. [Check out the live demo](http://lab.hakim.se/reveal-js/).
-
-reveal.js comes with a broad range of features including [nested slides](https://github.com/hakimel/reveal.js#markup), [Markdown contents](https://github.com/hakimel/reveal.js#markdown), [PDF export](https://github.com/hakimel/reveal.js#pdf-export), [speaker notes](https://github.com/hakimel/reveal.js#speaker-notes) and a [JavaScript API](https://github.com/hakimel/reveal.js#api). There's also a fully featured visual editor and platform for sharing reveal.js presentations at [slides.com](https://slides.com?ref=github).
-
-## Table of contents
-- [Online Editor](#online-editor)
-- [Instructions](#instructions)
-  - [Markup](#markup)
-  - [Markdown](#markdown)
-  - [Element Attributes](#element-attributes)
-  - [Slide Attributes](#slide-attributes)
-- [Configuration](#configuration)
-- [Presentation Size](#presentation-size)
-- [Dependencies](#dependencies)
-- [Ready Event](#ready-event)
-- [Auto-sliding](#auto-sliding)
-- [Keyboard Bindings](#keyboard-bindings)
-- [Touch Navigation](#touch-navigation)
-- [Lazy Loading](#lazy-loading)
-- [API](#api)
-  - [Slide Changed Event](#slide-changed-event)
-  - [Presentation State](#presentation-state)
-  - [Slide States](#slide-states)
-  - [Slide Backgrounds](#slide-backgrounds)
-  - [Parallax Background](#parallax-background)
-  - [Slide Transitions](#slide-transitions)
-  - [Internal links](#internal-links)
-  - [Fragments](#fragments)
-  - [Fragment events](#fragment-events)
-  - [Code syntax highlighting](#code-syntax-highlighting)
-  - [Slide number](#slide-number)
-  - [Overview mode](#overview-mode)
-  - [Fullscreen mode](#fullscreen-mode)
-  - [Embedded media](#embedded-media)
-  - [Stretching elements](#stretching-elements)
-  - [postMessage API](#postmessage-api)
-- [PDF Export](#pdf-export)
-- [Theming](#theming)
-- [Speaker Notes](#speaker-notes)
-  - [Share and Print Speaker Notes](#share-and-print-speaker-notes)
-  - [Server Side Speaker Notes](#server-side-speaker-notes)
-- [Multiplexing](#multiplexing)
-  - [Master presentation](#master-presentation)
-  - [Client presentation](#client-presentation)
-  - [Socket.io server](#socketio-server)
-- [MathJax](#mathjax)
-- [Installation](#installation)
-  - [Basic setup](#basic-setup)
-  - [Full setup](#full-setup)
-  - [Folder Structure](#folder-structure)
-- [License](#license)
-
-#### More reading
-- [Changelog](https://github.com/hakimel/reveal.js/releases): Up-to-date version history.
-- [Examples](https://github.com/hakimel/reveal.js/wiki/Example-Presentations): Presentations created with reveal.js, add your own!
-- [Browser Support](https://github.com/hakimel/reveal.js/wiki/Browser-Support): Explanation of browser support and fallbacks.
-- [Plugins](https://github.com/hakimel/reveal.js/wiki/Plugins,-Tools-and-Hardware): A list of plugins that can be used to extend reveal.js.
-
-## Online Editor
-
-Presentations are written using HTML or Markdown but there's also an online editor for those of you who prefer a graphical interface. Give it a try at [https://slides.com](https://slides.com?ref=github).
-
-
-## Instructions
-
-### Markup
-
-Here's a barebones example of a fully working reveal.js presentation:
-```html
-<html>
-	<head>
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/white.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
-		<script src="js/reveal.js"></script>
-		<script>
-			Reveal.initialize();
-		</script>
-	</body>
-</html>
-```
-
-The presentation markup hierarchy needs to be `.reveal > .slides > section` where the `section` represents one slide and can be repeated indefinitely. If you place multiple `section` elements inside of another `section` they will be shown as vertical slides. The first of the vertical slides is the "root" of the others (at the top), and will be included in the horizontal sequence. For example:
-
-```html
-<div class="reveal">
-	<div class="slides">
-		<section>Single Horizontal Slide</section>
-		<section>
-			<section>Vertical Slide 1</section>
-			<section>Vertical Slide 2</section>
-		</section>
-	</div>
-</div>
-```
+<!-- .slide: data-background-color="#262361" -->
+# Migrate Shotgun Tour
+Ryan Weal & Novella Chiechi
 
-### Markdown
+Kafei Interactive Inc.
 
-It's possible to write your slides using Markdown. To enable Markdown, add the ```data-markdown``` attribute to your ```<section>``` elements and wrap the contents in a ```<script type="text/template">``` like the example below.
+2016-06-17 Montréal
 
-This is based on [data-markdown](https://gist.github.com/1343518) from [Paul Irish](https://github.com/paulirish) modified to use [marked](https://github.com/chjj/marked) to support [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown). Sensitive to indentation (avoid mixing tabs and spaces) and line breaks (avoid consecutive breaks).
 
-```html
-<section data-markdown>
-	<script type="text/template">
-		## Page title
 
-		A paragraph with some text and a [link](http://hakim.se).
-	</script>
-</section>
-```
 
-#### External Markdown
+<!-- .slide: data-background-color="#262361" -->
+## What is migrate?
 
-You can write your content as a separate file and have reveal.js load it at runtime. Note the separator arguments which determine how slides are delimited in the external file. The ```data-charset``` attribute is optional and specifies which charset to use when loading the external file.
+ - We are going to install Drupal 8
+ - Connect to (a copy?) of the old site
+ - Install migration modules
+ - Auto or manually configure the migraitons
+ - Sources, Processors, Destinations (plugins)
+ - Run the migration! Import content!
 
-When used locally, this feature requires that reveal.js [runs from a local web server](#full-setup).
 
-```html
-<section data-markdown="example.md"  
-         data-separator="^\n\n\n"  
-         data-separator-vertical="^\n\n"  
-         data-separator-notes="^Note:"  
-         data-charset="iso-8859-15">
-</section>
-```
 
-#### Element Attributes
+<!-- .slide: data-background-color="#262361" -->
+## Historical Note
+###Forget what you know about migrate for Drupal 7
 
-Special syntax (in html comment) is available for adding attributes to Markdown elements. This is useful for fragments, amongst other things.
+ - Creates content types
+ - Imports things now in core
+ - Tries to preserve settings
+ - Turnkey solution for some users
 
-```html
-<section data-markdown>
-	<script type="text/template">
-		- Item 1 <!-- .element: class="fragment" data-fragment-index="2" -->
-		- Item 2 <!-- .element: class="fragment" data-fragment-index="1" -->
-	</script>
-</section>
-```
 
-#### Slide Attributes
 
-Special syntax (in html comment) is available for adding attributes to the slide `<section>` elements generated by your Markdown.
+<!-- .slide: data-background-color="#262361" -->
+## modules
+core
+(8.1.x and up)
+  - migrate
+  - migrate_drupal
+  - migrate_drupal_ui
 
-```html
-<section data-markdown>
-	<script type="text/template">
-	<!-- .slide: data-background="#ff0000" -->
-		Markdown content
-	</script>
-</section>
-```
+contrib
+(8.2.x branches and up only!)
+  - migrate_plus
+  - migrate_tools
+  - migrate_upgrade
 
+shell
+(a recent version supporting Drupal 8)
+  - drush (drupal console also has some things)
 
-### Configuration
 
-At the end of your page you need to initialize reveal by running the following code. Note that all config values are optional and will default as specified below.
 
-```javascript
-Reveal.initialize({
 
-	// Display controls in the bottom right corner
-	controls: true,
+<!-- .slide: data-background-color="#262361" -->
+## modules : other sources
 
-	// Display a presentation progress bar
-	progress: true,
+contrib
+  - migrate_source_csv
+  - migrate_source_json
+  - xml (part of migrate_plus)
+  - wordpress_migrate
 
-	// Display the page number of the current slide
-	slideNumber: false,
 
-	// Push each slide change to the browser history
-	history: false,
 
-	// Enable keyboard shortcuts for navigation
-	keyboard: true,
+<!-- .slide: data-background-color="#262361" -->
+## Migration approaches
 
-	// Enable the slide overview mode
-	overview: true,
+<table border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
+  <tbody>
+    <tr>
+      <td>Automatic</td>
+      <td>Hybrid</td>
+      <td>Manual</td>
+    </tr>
+    <tr>
+      <td>
+      <p>Let Drupal detect whatever it can migrate, run all the possible migrations.</p>
+      <ul>
+         <li>migrate</li>
+         <li>migrate_drupal</li>
+         <li>migrate_drupal_ui</li>
+       </ul>
+      </td>
+      <td><p>Let Drupal detect what it can migrate, and then modify that configuration before running it.</p>
 
-	// Vertical centering of slides
-	center: true,
+      <ul>
+         <li>migrate_upgrade (contrib)</li>
+      </ul>
 
-	// Enables touch navigation on devices with touch input
-	touch: true,
+      <p>+automatic +manual</p>
+      </td>
+      <td><p>Construct your own migrations, defined in configuration-like files.</p>
+      <ul>
+         <li>migrate_plus</li>
+         <li>migrate_tools</li>
+         <li>drush</li>
+      </ul>
 
-	// Loop the presentation
-	loop: false,
+      <p>+automatic</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-	// Change the presentation direction to be RTL
-	rtl: false,
 
-	// Randomizes the order of slides each time the presentation loads
-	shuffle: false,
 
-	// Turns fragments on and off globally
-	fragments: true,
 
-	// Flags if the presentation is running in an embedded mode,
-	// i.e. contained within a limited portion of the screen
-	embedded: false,
+<!-- .slide: data-background-color="#262361" -->
+## Automatic Method
 
-	// Flags if we should show a help overlay when the questionmark
-	// key is pressed
-	help: true,
+<blockquote>As a goat, I don't want to do any configuration or coding.  I just
+want my content from Drupal 6 (or 7) and I want it now. Why would I want to install Drush?</blockquote>
 
-	// Flags if speaker notes should be visible to all viewers
-	showNotes: false,
+At the end of this section you will know how to run migrations using the UI.
 
-	// Number of milliseconds between automatically proceeding to the
-	// next slide, disabled when set to 0, this value can be overwritten
-	// by using a data-autoslide attribute on your slides
-	autoSlide: 0,
 
-	// Stop auto-sliding after user input
-	autoSlideStoppable: true,
 
-	// Use this method for navigation when auto-sliding
-	autoSlideMethod: Reveal.navigateNext,
+<!-- .slide: data-background-color="#262361" -->
+## Automatic Method Setup
 
-	// Enable slide navigation via mouse wheel
-	mouseWheel: false,
+ - Modules: migrate, migrate_drupal, migrate_drupal_ui
+ - Visit /upgrade after enabling these modules
+ - Input DB and file paths
+ - Run it.
 
-	// Hides the address bar on mobile devices
-	hideAddressBar: true,
+<img src='images/figure4.png'>
 
-	// Opens links in an iframe preview overlay
-	previewLinks: false,
 
-	// Transition style
-	transition: 'default', // none/fade/slide/convex/concave/zoom
 
-	// Transition speed
-	transitionSpeed: 'default', // default/fast/slow
+<!-- .slide: data-background-color="#262361" -->
+Import success!
 
-	// Transition style for full page slide backgrounds
-	backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+Add D7 hash to settings.php!
 
-	// Number of slides away from the current that are visible
-	viewDistance: 3,
+<img src='images/figure8.png'>
 
-	// Parallax background image
-	parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
 
-	// Parallax background size
-	parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px"
 
-	// Number of pixels to move the parallax background per slide
-	// - Calculated automatically unless specified
-	// - Set to 0 to disable movement along an axis
-	parallaxBackgroundHorizontal: null,
-	parallaxBackgroundVertical: null
+<!-- .slide: data-background-color="#262361" -->
+## Automatic Method Extras
 
-});
-```
+Possible to pre-fill database values in UI using hook_form_alter:
 
+    /**
+     * Implements hook_form_alter().
+     */
+    function migrate_presets_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+      if ($form_id == 'migrate_drupal_ui_form') {
+        $form['database']['settings']['mysql']['host']['#default_value'] = 'db';
+        $form['database']['settings']['mysql']['database']['#default_value'] = 'cooks_legacy';
+        $form['database']['settings']['mysql']['username']['#default_value'] = 'root';
+        $form['database']['settings']['mysql']['password']['#value'] = 'my-secret-pw';
+        $form['database']['settings']['mysql']['advanced_options']['port']['#default_value'] = '3306';
+        $form['source']['source_base_path']['#default_value'] = '/path/to/files';
+      }
 
-The configuration can be updated after initialization using the ```configure``` method:
+There is also a settings.php hack but it does not work for UI.
 
-```javascript
-// Turn autoSlide off
-Reveal.configure({ autoSlide: 0 });
 
-// Start auto-sliding every 5s
-Reveal.configure({ autoSlide: 5000 });
-```
 
+<!-- .slide: data-background-color="#262361" -->
+## Automatic Method: Further reading
 
-### Presentation Size
+ - Performing Drupal Content Migrations on Pantheon
+   https://pantheon.io/blog/performing-drupal-content-migrations-pantheon
 
-All presentations have a normal size, that is the resolution at which they are authored. The framework will automatically scale presentations uniformly based on this size to ensure that everything fits on any given display or viewport.
 
-See below for a list of configuration options related to sizing, including default values:
 
-```javascript
-Reveal.initialize({
+<!-- .slide: data-background-color="#718522" -->
+## Hybrid Method
 
-	...
+<blockquote> As a goat, I know writing code from scatch can take a long time,
+but migrate can detect all of my configuration so I can skip that. I only want
+to run part of it. Or I want to change it just a bit.</blockquote>
 
-	// The "normal" size of the presentation, aspect ratio will be preserved
-	// when the presentation is scaled to fit different resolutions. Can be
-	// specified using percentage units.
-	width: 960,
-	height: 700,
+At the end of this section you will have working knowledge of how to use drush
+for migrations.
 
-	// Factor of the display size that should remain empty around the content
-	margin: 0.1,
 
-	// Bounds for smallest/largest possible scale to apply to content
-	minScale: 0.2,
-	maxScale: 1.5
 
-});
-```
+<!-- .slide: data-background-color="#718522" -->
+## Hybrid Method Setup
+Migrating from Drupal 6 or 7
 
+ - Enable: migrate, migrate_drupal, migrate_drupal_ui, migrate_tools, migrate_plus, migrate_upgrade
+ - Install drush
+ - Add 'upgrade' database to settings.php if you don't want to put on command line each time:
 
-### Dependencies
+     <pre><code>$databases['upgrade']['default'] = array (
+      'database' => 'cooks_legacy',
+      'username' => 'root',
+      'password' => 'my-secret-pw',
+      'prefix' => '', 
+      'host' => 'db',
+      'port' => '3306',
+      'namespace' => 'Drupal\Core\Database\Driver\mysql',
+      'driver' => 'mysql',
+    );</code></pre>
+
+The 'upgrade' database key is only used with migrate_upgrade module.
+
+
+
+<!-- .slide: data-background-color="#718522" -->
+## Hybrid Method Discovery
+
+ - load the config, only run a few? or,
+ - export the config
+ - modify the config
+ - import the new config
+ - run the config
+
+
+
+<!-- .slide: data-background-color="#718522" -->
+## Hybrid Workflow: Export
+
+Configure the Migrations
+
+    drush migrate-upgrade \
+    --legacy-db-url=mysql://user:password@server/db \
+    --legacy-root=http://example.com \
+    --configure-only
+
+Remember if you created 'upgrade' db in settings.php you can skip the --legacy-db-url.
+
+     # drush migrate-status                                                    
+     Group: migrate_drupal_6                         Status  Total  Imported  Unprocessed  Last imported 
+     upgrade_block_content_type                      Idle    1      0         1                          
+     upgrade_contact_category                        Idle    0      0         0                          
+     upgrade_d6_date_formats                         Idle    0      0         0                          
+     upgrade_d6_dblog_settings                       Idle    0      0         0                          
+     upgrade_d6_file_settings                        Idle    0      0         0                          
+     upgrade_d6_imagecache_presets                   Idle    3      0         3                          
+     upgrade_d6_search_settings                      Idle    0      0         0                          
+     upgrade_d6_system_cron                          Idle    0      0         0                          
+     upgrade_d6_system_date                          Idle    1      0         1                          
+     upgrade_d6_system_file                          Idle    1      0         1                          
+     upgrade_d6_system_image                         Idle    1      0         1                          
+     upgrade_d6_system_image_gd                      Idle    0      0         0                          
+     upgrade_d6_system_logging                       Idle    0      0         0                          
+     upgrade_d6_system_maintenance                   Idle    0      0         0                          
+     upgrade_d6_system_performance                   Idle    0      0         0                          
+     upgrade_d6_system_rss                           Idle    0      0         0                          
+     upgrade_d6_system_site                          Idle    1      0         1                          
+     upgrade_d6_url_alias                            Idle    0      0         0                          
+     upgrade_d6_user_mail                            Idle    0      0         0                          
+     upgrade_d6_user_settings                        Idle    1      0         1                          
+     upgrade_menu_settings                           Idle    0      0         0                          
+     upgrade_search_page                             Idle    0      0         0                          
+     upgrade_taxonomy_settings                       Idle    0      0         0                          
+     upgrade_text_settings                           Idle    0      0         0                          
+     upgrade_update_settings                         Idle    0      0         0                          
+     upgrade_block_content_body_field                Idle    1      0         1                          
+     upgrade_d6_contact_settings                     Idle    0      0         0                          
+     upgrade_menu                                    Idle    4      0         4                          
+     upgrade_d6_filter_format                        Idle    2      0         2                          
+     upgrade_d6_custom_block                         Idle    0      0         0                          
+     upgrade_d6_user_role                            Idle    2      0         2                          
+     upgrade_d6_block                                Idle    36     0         36                         
+     upgrade_d6_file                                 Idle    683    0         683                        
+     upgrade_d6_user_picture_file                    Idle    0      0         0                          
+     upgrade_user_picture_field                      Idle    1      0         1                          
+     upgrade_user_picture_field_instance             Idle    1      0         1                          
+     upgrade_user_picture_entity_display             Idle    1      0         1                          
+     upgrade_user_picture_entity_form_display        Idle    1      0         1                          
+     upgrade_d6_user                                 Idle    4      0         4                          
+     upgrade_d6_node_type                            Idle    6      0         6                          
+     upgrade_d6_node_settings                        Idle    1      0         1                          
+     upgrade_d6_field                                Idle    12     0         12                         
+     upgrade_d6_field_instance                       Idle    15     0         15                         
+     upgrade_d6_field_instance_widget_settings       Idle    15     0         15                         
+     upgrade_d6_view_modes                           Idle    3      0         3                          
+     upgrade_d6_field_formatter_settings             Idle    33     0         33                         
+     upgrade_d6_upload_field                         Idle    1      0         1                          
+     upgrade_d6_upload_field_instance                Idle    1      0         1                          
+     upgrade_d6_node_blog                            Idle    0      0         0                          
+     upgrade_d6_node_chef_profile                    Idle    3      0         3                          
+     upgrade_d6_node_page                            Idle    0      0         0                          
+     upgrade_d6_node_poll                            Idle    0      0         0                          
+     upgrade_d6_node_recipe                          Idle    4      0         4                          
+     upgrade_d6_node_story                           Idle    2      0         2                          
+     upgrade_d6_comment_type                         Idle    2      0         2                          
+     upgrade_d6_comment_field                        Idle    2      0         2                          
+     upgrade_d6_comment_field_instance               Idle    3      0         3                          
+     upgrade_d6_comment_entity_display               Idle    3      0         3                          
+     upgrade_d6_comment_entity_form_display          Idle    3      0         3                          
+     upgrade_d6_comment                              Idle    0      0         0                          
+     upgrade_d6_comment_entity_form_display_subject  Idle    2      0         2                          
+     upgrade_d6_node_revision_blog                   Idle    0      0         0                          
+     upgrade_d6_node_revision_chef_profile           Idle    0      0         0                          
+     upgrade_d6_node_revision_page                   Idle    0      0         0                          
+     upgrade_d6_node_revision_poll                   Idle    0      0         0                          
+     upgrade_d6_node_revision_recipe                 Idle    0      0         0                          
+     upgrade_d6_node_revision_story                  Idle    0      0         0                          
+     upgrade_d6_node_setting_promote                 Idle    6      0         6                          
+     upgrade_d6_node_setting_status                  Idle    6      0         6                          
+     upgrade_d6_node_setting_sticky                  Idle    6      0         6                          
+     upgrade_user_profile_field                      Idle    0      0         0                          
+     upgrade_user_profile_field_instance             Idle    0      0         0                          
+     upgrade_user_profile_entity_display             Idle    0      0         0                          
+     upgrade_user_profile_entity_form_display        Idle    0      0         0                          
+     upgrade_d6_profile_values                       Idle    0      0         0                          
+     upgrade_d6_taxonomy_vocabulary                  Idle    0      0         0                          
+     upgrade_d6_taxonomy_term                        Idle    0      0         0                          
+     upgrade_d6_upload                               Idle    0      0         0                          
+     upgrade_d6_upload_entity_display                Idle    1      0         1                          
+     upgrade_d6_upload_entity_form_display           Idle    1      0         1                          
+     upgrade_d6_user_contact_settings                Idle    4      0         4                          
+     upgrade_d6_vocabulary_field                     Idle    0      0         0                          
+     upgrade_d6_vocabulary_field_instance            Idle    0      0         0                          
+     upgrade_d6_vocabulary_entity_display            Idle    0      0         0                          
+     upgrade_d6_vocabulary_entity_form_display       Idle    0      0         0                          
+     upgrade_menu_links                              Idle    0      0         0         
+
+Export as config
+
+    drush config-export
+
+Everything should now be in your config folder.
+
+
+
+<!-- .slide: data-background-color="#718522" -->
+## Hybrid Workflow: Remix
+Edit migrate_plus.migration.d6_user.yml
+
+    id: d6_user
+    label: User accounts
+    migration_tags:
+      - Drupal 6
+    source:
+      plugin: d6_user
+    process:
+      uid: uid 
+      name: name
+      pass: pass
+      mail: mail
+      created: created
+      access: access
+      login: login
+      status: status
+      timezone:
+        plugin: user_update_7002
+        source: timezone
+      preferred_langcode: language
+      init: init
+      roles:
+        plugin: migration
+        migration: d6_user_role
+        source: roles
+      user_picture:
+        plugin: migration
+        migration: d6_user_picture_file
+        source: uid 
+        no_stub: true
+    destination:
+      plugin: entity:user
+      md5_passwords: true
+    migration_dependencies:
+      required:
+        - d6_user_role
+      optional:
+        - d6_user_picture_file
+        - user_picture_entity_display
+        - user_picture_entity_form_display
+
+
+
+<!-- .slide: data-background-color="#718522" -->
+## Hybrid Workflow: process 
+
+Implicit get plugin:
+
+    process:
+      title: subject
+   
+Specific process plugin: 
+
+    process:
+      uid:
+        plugin: migration
+        migration: users
+        source: author
+  
+Chained process: 
+d
+    process:
+        format:
+            -
+                plugin: machine_name
+                source: name
+            -
+                plugin: dedupe_entity
+                entity_type: filter_format
+                field: format
 
-Reveal.js doesn't _rely_ on any third party scripts to work but a few optional libraries are included by default. These libraries are loaded as dependencies in the order they appear, for example:
 
-```javascript
-Reveal.initialize({
-	dependencies: [
-		// Cross-browser shim that fully implements classList - https://github.com/eligrey/classList.js/
-		{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
 
-		// Interpret Markdown in <section> elements
-		{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-		{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+<!-- .slide: data-background-color="#718522" -->
+## Hybrid Workflow: run the migraitons
 
-		// Syntax highlight for <code> elements
-		{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+Import your configuration if you made changes.
 
-		// Zoom in and out with Alt+click
-		{ src: 'plugin/zoom-js/zoom.js', async: true },
+    drush config-import
 
-		// Speaker notes
-		{ src: 'plugin/notes/notes.js', async: true },
+Run all migrations!
 
-		// MathJax
-		{ src: 'plugin/math/math.js', async: true }
-	]
-});
-```
+    drush migrate-import --all
 
-You can add your own extensions using the same syntax. The following properties are available for each dependency object:
-- **src**: Path to the script to load
-- **async**: [optional] Flags if the script should load after reveal.js has started, defaults to false
-- **callback**: [optional] Function to execute when the script has loaded
-- **condition**: [optional] Function which must return true for the script to be loaded
+Or run only a single migration:
 
+    drush migrate-import d6_user
 
-### Ready Event
 
-A 'ready' event is fired when reveal.js has loaded all non-async dependencies and is ready to start navigating. To check if reveal.js is already 'ready' you can call `Reveal.isReady()`.
+
+<!-- .slide: data-background-color="#718522" -->
+## Hybrid Workflow: Further Reading
+
+ - Custom Drupal-to-Drupal Migrations with Migrate Tools 
+  https://drupalize.me/blog/201605/custom-drupal-drupal-migrations-migrate-tools
+
+
+
+<!-- .slide: data-background-color="#8B7324" -->
+## Manual Method
+
+<blockquote> As a goat, I have narrowed my use case to just what I need and I would like to be all zen and do it from scratch.</blockquote>
+
+All the details of configuring a migration.
+
+
+
+<!-- .slide: data-background-color="#8B7324" -->
+## Manual Method Setup
+Migrating from everything else
 
-```javascript
-Reveal.addEventListener( 'ready', function( event ) {
-	// event.currentSlide, event.indexh, event.indexv
-} );
-```
+ - Enable: migrate, migrate_drupal, migrate_drupal_ui, migrate_tools, migrate_plus, migrate_upgrade
+ - Install drush
+ - For DB migraitons, add 'migrate' database to settings.php:
 
+     <pre><code>$databases['migrate']['default'] = array (
+      'database' => 'cooks_legacy',
+      'username' => 'root',
+      'password' => 'my-secret-pw',
+      'prefix' => '', 
+      'host' => 'db',
+      'port' => '3306',
+      'namespace' => 'Drupal\Core\Database\Driver\mysql',
+      'driver' => 'mysql',
+    );</code></pre>
 
-### Auto-sliding
+You can import from multiple DBs by using migration groups and corresponding
+key name.
 
-Presentations can be configured to progress through slides automatically, without any user input. To enable this you will need to tell the framework how many milliseconds it should wait between slides:
 
-```javascript
-// Slide every five seconds
-Reveal.configure({
-  autoSlide: 5000
-});
-```
-When this is turned on a control element will appear that enables users to pause and resume auto-sliding. Alternatively, sliding can be paused or resumed by pressing »a« on the keyboard. Sliding is paused automatically as soon as the user starts navigating. You can disable these controls by specifying ```autoSlideStoppable: false``` in your reveal.js config.
 
-You can also override the slide duration for individual slides and fragments by using the ```data-autoslide``` attribute:
+<!-- .slide: data-background-color="#8B7324" -->
+## Manual Method Custom Module
 
-```html
-<section data-autoslide="2000">
-	<p>After 2 seconds the first fragment will be shown.</p>
-	<p class="fragment" data-autoslide="10000">After 10 seconds the next fragment will be shown.</p>
-	<p class="fragment">Now, the fragment is displayed for 2 seconds before the next slide is shown.</p>
-</section>
-```
+We are not going to use the 'migrate' database we put into settings.php. We will
+just use a text file called animals.csv.
 
-To override the method used for navigation when auto-sliding, you can specify the ```autoSlideMethod``` setting. To only navigate along the top layer and ignore vertical slides, set this to ```Reveal.navigateRight```.
+    rcw@mojito:~/migrate_demo$ tree
+    .
+    ├── animals.csv
+    ├── config
+    │   └── install
+    │       └── migrate_plus.migration.animals.yml
+    └── migrate_demo.info.yml
 
-Whenever the auto-slide mode is resumed or paused the ```autoslideresumed``` and ```autoslidepaused``` events are fired.
+The file only has one column.
+
+    rcw@mojito:~/migrate_demo$ cat animals.csv 
+    lion
+    tiger
+    elephant
+    monkey
+
+
+
+
+<!-- .slide: data-background-color="#8B7324" -->
+## Manual method, after enabling
+
+    # drush ms                                             
+    Group: default  Status  Total  Imported  Unprocessed  Last imported 
+    animals         Idle    4      0         4   
+
+Now import!
 
-
-### Keyboard Bindings
-
-If you're unhappy with any of the default keyboard bindings you can override them using the ```keyboard``` config option:
-
-```javascript
-Reveal.configure({
-  keyboard: {
-    13: 'next', // go to the next slide when the ENTER key is pressed
-    27: function() {}, // do something custom when ESC is pressed
-    32: null // don't do anything when SPACE is pressed (i.e. disable a reveal.js default binding)
-  }
-});
-```
-
-### Touch Navigation
-
-You can swipe to navigate through a presentation on any touch-enabled device. Horizontal swipes change between horizontal slides, vertical swipes change between vertical slides. If you wish to disable this you can set the `touch` config option to false when initializing reveal.js.
-
-If there's some part of your content that needs to remain accessible to touch events you'll need to highlight this by adding a `data-prevent-swipe` attribute to the element. One common example where this is useful is elements that need to be scrolled.
-
-
-### Lazy Loading
-
-When working on presentation with a lot of media or iframe content it's important to load lazily. Lazy loading means that reveal.js will only load content for the few slides nearest to the current slide. The number of slides that are preloaded is determined by the `viewDistance` configuration option.
-
-To enable lazy loading all you need to do is change your "src" attributes to "data-src" as shown below. This is supported for image, video, audio and iframe elements. Lazy loaded iframes will also unload when the containing slide is no longer visible.
-
-```html
-<section>
-  <img data-src="image.png">
-  <iframe data-src="http://hakim.se"></iframe>
-  <video>
-    <source data-src="video.webm" type="video/webm" />
-    <source data-src="video.mp4" type="video/mp4" />
-  </video>
-</section>
-```
-
-
-### API
-
-The ``Reveal`` object exposes a JavaScript API for controlling navigation and reading state:
-
-```javascript
-// Navigation
-Reveal.slide( indexh, indexv, indexf );
-Reveal.left();
-Reveal.right();
-Reveal.up();
-Reveal.down();
-Reveal.prev();
-Reveal.next();
-Reveal.prevFragment();
-Reveal.nextFragment();
-
-// Randomize the order of slides
-Reveal.shuffle();
-
-// Toggle presentation states, optionally pass true/false to force on/off
-Reveal.toggleOverview();
-Reveal.togglePause();
-Reveal.toggleAutoSlide();
-
-// Change a config value at runtime
-Reveal.configure({ controls: true });
-
-// Returns the present configuration options
-Reveal.getConfig();
-
-// Fetch the current scale of the presentation
-Reveal.getScale();
-
-// Retrieves the previous and current slide elements
-Reveal.getPreviousSlide();
-Reveal.getCurrentSlide();
-
-Reveal.getIndices(); // { h: 0, v: 0 } }
-Reveal.getProgress(); // 0-1
-Reveal.getTotalSlides();
-
-// Returns the speaker notes for the current slide
-Reveal.getSlideNotes();
-
-// State checks
-Reveal.isFirstSlide();
-Reveal.isLastSlide();
-Reveal.isOverview();
-Reveal.isPaused();
-Reveal.isAutoSliding();
-```
-
-### Slide Changed Event
-
-A 'slidechanged' event is fired each time the slide is changed (regardless of state). The event object holds the index values of the current slide as well as a reference to the previous and current slide HTML nodes.
-
-Some libraries, like MathJax (see [#226](https://github.com/hakimel/reveal.js/issues/226#issuecomment-10261609)), get confused by the transforms and display states of slides. Often times, this can be fixed by calling their update or render function from this callback.
-
-```javascript
-Reveal.addEventListener( 'slidechanged', function( event ) {
-	// event.previousSlide, event.currentSlide, event.indexh, event.indexv
-} );
-```
-
-### Presentation State
-
-The presentation's current state can be fetched by using the `getState` method. A state object contains all of the information required to put the presentation back as it was when `getState` was first called. Sort of like a snapshot. It's a simple object that can easily be stringified and persisted or sent over the wire.
-
-```javascript
-Reveal.slide( 1 );
-// we're on slide 1
-
-var state = Reveal.getState();
-
-Reveal.slide( 3 );
-// we're on slide 3
-
-Reveal.setState( state );
-// we're back on slide 1
-```
-
-### Slide States
-
-If you set ``data-state="somestate"`` on a slide ``<section>``, "somestate" will be applied as a class on the document element when that slide is opened. This allows you to apply broad style changes to the page based on the active slide.
-
-Furthermore you can also listen to these changes in state via JavaScript:
-
-```javascript
-Reveal.addEventListener( 'somestate', function() {
-	// TODO: Sprinkle magic
-}, false );
-```
-
-### Slide Backgrounds
-
-Slides are contained within a limited portion of the screen by default to allow them to fit any display and scale uniformly. You can apply full page backgrounds outside of the slide area by adding a ```data-background``` attribute to your ```<section>``` elements. Four different types of backgrounds are supported: color, image, video and iframe.
-
-##### Color Backgrounds
-All CSS color formats are supported, like rgba() or hsl().
-```html
-<section data-background-color="#ff0000">
-	<h2>Color</h2>
-</section>
-```
-
-##### Image Backgrounds
-By default, background images are resized to cover the full page. Available options:
-
-| Attribute                    | Default    | Description |
-| :--------------------------- | :--------- | :---------- |
-| data-background-image        |            | URL of the image to show. GIFs restart when the slide opens. |
-| data-background-size         | cover      | See [background-size](https://developer.mozilla.org/docs/Web/CSS/background-size) on MDN.  |
-| data-background-position     | center     | See [background-position](https://developer.mozilla.org/docs/Web/CSS/background-position) on MDN. |
-| data-background-repeat       | no-repeat  | See [background-repeat](https://developer.mozilla.org/docs/Web/CSS/background-repeat) on MDN. |
-```html
-<section data-background-image="http://example.com/image.png">
-	<h2>Image</h2>
-</section>
-<section data-background-image="http://example.com/image.png" data-background-size="100px" data-background-repeat="repeat">
-	<h2>This background image will be sized to 100px and repeated</h2>
-</section>
-```
-
-##### Video Backgrounds
-Automatically plays a full size video behind the slide.
-
-| Attribute                    | Default | Description |
-| :--------------------------- | :------ | :---------- |
-| data-background-video        |         | A single video source, or a comma separated list of video sources. |
-| data-background-video-loop   | false   | Flags if the video should play repeatedly. |
-| data-background-video-muted  | false   | Flags if the audio should be muted. |
-
-```html
-<section data-background-video="https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.mp4,https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.webm" data-background-video-loop data-background-video-muted>
-	<h2>Video</h2>
-</section>
-```
-
-##### Iframe Backgrounds
-Embeds a web page as a background. Note that since the iframe is in the background layer, behind your slides, it is not possible to interact with the embedded page.
-```html
-<section data-background-iframe="https://slides.com">
-	<h2>Iframe</h2>
-</section>
-```
-
-##### Background Transitions
-Backgrounds transition using a fade animation by default. This can be changed to a linear sliding transition by passing ```backgroundTransition: 'slide'``` to the ```Reveal.initialize()``` call. Alternatively you can set ```data-background-transition``` on any section with a background to override that specific transition.
-
-
-### Parallax Background
-
-If you want to use a parallax scrolling background, set the first two config properties below when initializing reveal.js (the other two are optional).
-
-```javascript
-Reveal.initialize({
-
-	// Parallax background image
-	parallaxBackgroundImage: '', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
-
-	// Parallax background size
-	parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
-
-	// Number of pixels to move the parallax background per slide
-	// - Calculated automatically unless specified
-	// - Set to 0 to disable movement along an axis
-	parallaxBackgroundHorizontal: 200,
-	parallaxBackgroundVertical: 50
-
-});
-```
-
-Make sure that the background size is much bigger than screen size to allow for some scrolling. [View example](http://lab.hakim.se/reveal-js/?parallaxBackgroundImage=https%3A%2F%2Fs3.amazonaws.com%2Fhakim-static%2Freveal-js%2Freveal-parallax-1.jpg&parallaxBackgroundSize=2100px%20900px).
-
-
-
-### Slide Transitions
-The global presentation transition is set using the ```transition``` config value. You can override the global transition for a specific slide by using the ```data-transition``` attribute:
-
-```html
-<section data-transition="zoom">
-	<h2>This slide will override the presentation transition and zoom!</h2>
-</section>
-
-<section data-transition-speed="fast">
-	<h2>Choose from three transition speeds: default, fast or slow!</h2>
-</section>
-```
-
-You can also use different in and out transitions for the same slide:
-
-```html
-<section data-transition="slide">
-    The train goes on …
-</section>
-<section data-transition="slide">
-    and on …
-</section>
-<section data-transition="slide-in fade-out">
-    and stops.
-</section>
-<section data-transition="fade-in slide-out">
-    (Passengers entering and leaving)
-</section>
-<section data-transition="slide">
-    And it starts again.
-</section>
-```
-
-
-### Internal links
-
-It's easy to link between slides. The first example below targets the index of another slide whereas the second targets a slide with an ID attribute (```<section id="some-slide">```):
-
-```html
-<a href="#/2/2">Link</a>
-<a href="#/some-slide">Link</a>
-```
-
-You can also add relative navigation links, similar to the built in reveal.js controls, by appending one of the following classes on any element. Note that each element is automatically given an ```enabled``` class when it's a valid navigation route based on the current slide.
-
-```html
-<a href="#" class="navigate-left">
-<a href="#" class="navigate-right">
-<a href="#" class="navigate-up">
-<a href="#" class="navigate-down">
-<a href="#" class="navigate-prev"> <!-- Previous vertical or horizontal slide -->
-<a href="#" class="navigate-next"> <!-- Next vertical or horizontal slide -->
-```
-
-
-### Fragments
-Fragments are used to highlight individual elements on a slide. Every element with the class ```fragment``` will be stepped through before moving on to the next slide. Here's an example: http://lab.hakim.se/reveal-js/#/fragments
-
-The default fragment style is to start out invisible and fade in. This style can be changed by appending a different class to the fragment:
-
-```html
-<section>
-	<p class="fragment grow">grow</p>
-	<p class="fragment shrink">shrink</p>
-	<p class="fragment fade-out">fade-out</p>
-	<p class="fragment fade-up">fade-up (also down, left and right!)</p>
-	<p class="fragment current-visible">visible only once</p>
-	<p class="fragment highlight-current-blue">blue only once</p>
-	<p class="fragment highlight-red">highlight-red</p>
-	<p class="fragment highlight-green">highlight-green</p>
-	<p class="fragment highlight-blue">highlight-blue</p>
-</section>
-```
-
-Multiple fragments can be applied to the same element sequentially by wrapping it, this will fade in the text on the first step and fade it back out on the second.
-
-```html
-<section>
-	<span class="fragment fade-in">
-		<span class="fragment fade-out">I'll fade in, then out</span>
-	</span>
-</section>
-```
-
-The display order of fragments can be controlled using the ```data-fragment-index``` attribute.
-
-```html
-<section>
-	<p class="fragment" data-fragment-index="3">Appears last</p>
-	<p class="fragment" data-fragment-index="1">Appears first</p>
-	<p class="fragment" data-fragment-index="2">Appears second</p>
-</section>
-```
-
-### Fragment events
-
-When a slide fragment is either shown or hidden reveal.js will dispatch an event.
-
-Some libraries, like MathJax (see #505), get confused by the initially hidden fragment elements. Often times this can be fixed by calling their update or render function from this callback.
-
-```javascript
-Reveal.addEventListener( 'fragmentshown', function( event ) {
-	// event.fragment = the fragment DOM element
-} );
-Reveal.addEventListener( 'fragmenthidden', function( event ) {
-	// event.fragment = the fragment DOM element
-} );
-```
-
-### Code syntax highlighting
-
-By default, Reveal is configured with [highlight.js](https://highlightjs.org/) for code syntax highlighting. Below is an example with clojure code that will be syntax highlighted. When the `data-trim` attribute is present, surrounding whitespace is automatically removed.  HTML will be escaped by default. To avoid this, for example if you are using `<mark>` to call out a line of code, add the `data-noescape` attribute to the `<code>` element.
-
-```html
-<section>
-	<pre><code data-trim data-noescape>
-(def lazy-fib
-  (concat
-   [0 1]
-   <mark>((fn rfib [a b]</mark>
-        (lazy-cons (+ a b) (rfib b (+ a b)))) 0 1)))
-	</code></pre>
-</section>
-```
-
-### Slide number
-If you would like to display the page number of the current slide you can do so using the ```slideNumber``` configuration value.
-
-```javascript
-// Shows the slide number using default formatting
-Reveal.configure({ slideNumber: true });
-
-// Slide number formatting can be configured using these variables:
-//  "h.v": 	horizontal . vertical slide number (default)
-//  "h/v": 	horizontal / vertical slide number
-//    "c": 	flattened slide number
-//  "c/t": 	flattened slide number / total slides
-Reveal.configure({ slideNumber: 'c/t' });
-
-```
-
-
-### Overview mode
-
-Press "Esc" or "o" keys to toggle the overview mode on and off. While you're in this mode, you can still navigate between slides,
-as if you were at 1,000 feet above your presentation. The overview mode comes with a few API hooks:
-
-```javascript
-Reveal.addEventListener( 'overviewshown', function( event ) { /* ... */ } );
-Reveal.addEventListener( 'overviewhidden', function( event ) { /* ... */ } );
-
-// Toggle the overview mode programmatically
-Reveal.toggleOverview();
-```
-
-### Fullscreen mode
-Just press »F« on your keyboard to show your presentation in fullscreen mode. Press the »ESC« key to exit fullscreen mode.
-
-
-### Embedded media
-Embedded HTML5 `<video>`/`<audio>` and YouTube iframes are automatically paused when you navigate away from a slide. This can be disabled by decorating your element with a `data-ignore` attribute.
-
-Add `data-autoplay` to your media element if you want it to automatically start playing when the slide is shown:
-
-```html
-<video data-autoplay src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"></video>
-```
-
-Additionally the framework automatically pushes two [post messages](https://developer.mozilla.org/en-US/docs/Web/API/Window.postMessage) to all iframes, ```slide:start``` when the slide containing the iframe is made visible and ```slide:stop``` when it is hidden.
-
-
-### Stretching elements
-Sometimes it's desirable to have an element, like an image or video, stretch to consume as much space as possible within a given slide. This can be done by adding the ```.stretch``` class to an element as seen below:
-
-```html
-<section>
-	<h2>This video will use up the remaining space on the slide</h2>
-    <video class="stretch" src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"></video>
-</section>
-```
-
-Limitations:
-- Only direct descendants of a slide section can be stretched
-- Only one descendant per slide section can be stretched
-
-
-### postMessage API
-The framework has a built-in postMessage API that can be used when communicating with a presentation inside of another window. Here's an example showing how you'd make a reveal.js instance in the given window proceed to slide 2:
-
-```javascript
-<window>.postMessage( JSON.stringify({ method: 'slide', args: [ 2 ] }), '*' );
-```
-
-When reveal.js runs inside of an iframe it can optionally bubble all of its events to the parent. Bubbled events are stringified JSON with three fields: namespace, eventName and state. Here's how you subscribe to them from the parent window:
-
-```javascript
-window.addEventListener( 'message', function( event ) {
-	var data = JSON.parse( event.data );
-	if( data.namespace === 'reveal' && data.eventName ==='slidechanged' ) {
-		// Slide changed, see data.state for slide number
-	}
-} );
-```
-
-This cross-window messaging can be toggled on or off using configuration flags.
-
-```javascript
-Reveal.initialize({
-	...,
-
-	// Exposes the reveal.js API through window.postMessage
-	postMessage: true,
-
-	// Dispatches all reveal.js events to the parent window through postMessage
-	postMessageEvents: false
-});
-```
-
-
-## PDF Export
-
-Presentations can be exported to PDF via a special print stylesheet. This feature requires that you use [Google Chrome](http://google.com/chrome) or [Chromium](https://www.chromium.org/Home).
-Here's an example of an exported presentation that's been uploaded to SlideShare: http://www.slideshare.net/hakimel/revealjs-300.
-
-1. Open your presentation with `print-pdf` included anywhere in the query string. This triggers the default index HTML to load the PDF print stylesheet ([css/print/pdf.css](https://github.com/hakimel/reveal.js/blob/master/css/print/pdf.css)). You can test this with [lab.hakim.se/reveal-js?print-pdf](http://lab.hakim.se/reveal-js?print-pdf).
-2. Open the in-browser print dialog (CTRL/CMD+P).
-3. Change the **Destination** setting to **Save as PDF**.
-4. Change the **Layout** to **Landscape**.
-5. Change the **Margins** to **None**.
-6. Enable the **Background graphics** option.
-7. Click **Save**.
-
-![Chrome Print Settings](https://s3.amazonaws.com/hakim-static/reveal-js/pdf-print-settings-2.png)
-
-Alternatively you can use the [decktape](https://github.com/astefanutti/decktape) project.
-
-## Theming
-
-The framework comes with a few different themes included:
-
-- black: Black background, white text, blue links (default theme)
-- white: White background, black text, blue links
-- league: Gray background, white text, blue links (default theme for reveal.js < 3.0.0)
-- beige: Beige background, dark text, brown links
-- sky: Blue background, thin dark text, blue links
-- night: Black background, thick white text, orange links
-- serif: Cappuccino background, gray text, brown links
-- simple: White background, black text, blue links
-- solarized: Cream-colored background, dark green text, blue links
-
-Each theme is available as a separate stylesheet. To change theme you will need to replace **black** below with your desired theme name in index.html:
-
-```html
-<link rel="stylesheet" href="css/theme/black.css" id="theme">
-```
-
-If you want to add a theme of your own see the instructions here: [/css/theme/README.md](https://github.com/hakimel/reveal.js/blob/master/css/theme/README.md).
-
-
-## Speaker Notes
-
-reveal.js comes with a speaker notes plugin which can be used to present per-slide notes in a separate browser window. The notes window also gives you a preview of the next upcoming slide so it may be helpful even if you haven't written any notes. Press the 's' key on your keyboard to open the notes window.
-
-Notes are defined by appending an ```<aside>``` element to a slide as seen below. You can add the ```data-markdown``` attribute to the aside element if you prefer writing notes using Markdown.
-
-Alternatively you can add your notes in a `data-notes` attribute on the slide. Like `<section data-notes="Something important"></section>`.
-
-When used locally, this feature requires that reveal.js [runs from a local web server](#full-setup).
-
-```html
-<section>
-	<h2>Some Slide</h2>
-
-	<aside class="notes">
-		Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
-	</aside>
-</section>
-```
-
-If you're using the external Markdown plugin, you can add notes with the help of a special delimiter:
-
-```html
-<section data-markdown="example.md" data-separator="^\n\n\n" data-separator-vertical="^\n\n" data-separator-notes="^Note:"></section>
-
-# Title
-## Sub-title
-
-Here is some content...
-
-Note:
-This will only display in the notes window.
-```
-
-#### Share and Print Speaker Notes
-
-Notes are only visible to the speaker inside of the speaker view. If you wish to share your notes with others you can initialize reveal.js with the `showNotes` config value set to `true`. Notes will appear along the bottom of the presentations.
-
-When `showNotes` is enabled notes are also included when you [export to PDF](https://github.com/hakimel/reveal.js#pdf-export).
-
-## Server Side Speaker Notes
-
-In some cases it can be desirable to run notes on a separate device from the one you're presenting on. The Node.js-based notes plugin lets you do this using the same note definitions as its client side counterpart. Include the required scripts by adding the following dependencies:
-
-```javascript
-Reveal.initialize({
-	...
-
-	dependencies: [
-		{ src: 'socket.io/socket.io.js', async: true },
-		{ src: 'plugin/notes-server/client.js', async: true }
-	]
-});
-```
-
-Then:
-
-1. Install [Node.js](http://nodejs.org/) (1.0.0 or later)
-2. Run ```npm install```
-3. Run ```node plugin/notes-server```
-
-
-## Multiplexing
-
-The multiplex plugin allows your audience to view the slides of the presentation you are controlling on their own phone, tablet or laptop. As the master presentation navigates the slides, all client presentations will update in real time. See a demo at [https://reveal-js-multiplex-ccjbegmaii.now.sh/](https://reveal-js-multiplex-ccjbegmaii.now.sh/).
-
-The multiplex plugin needs the following 3 things to operate:
-
-1. Master presentation that has control
-2. Client presentations that follow the master
-3. Socket.io server to broadcast events from the master to the clients
-
-More details:
-
-#### Master presentation
-Served from a static file server accessible (preferably) only to the presenter. This need only be on your (the presenter's) computer. (It's safer to run the master presentation from your own computer, so if the venue's Internet goes down it doesn't stop the show.) An example would be to execute the following commands in the directory of your master presentation:
-
-1. ```npm install node-static```
-2. ```static```
-
-If you want to use the speaker notes plugin with your master presentation then make sure you have the speaker notes plugin configured correctly along with the configuration shown below, then execute ```node plugin/notes-server``` in the directory of your master presentation. The configuration below will cause it to connect to the socket.io server as a master, as well as launch your speaker-notes/static-file server.
-
-You can then access your master presentation at ```http://localhost:1947```
-
-Example configuration:
-```javascript
-Reveal.initialize({
-	// other options...
-
-	multiplex: {
-		// Example values. To generate your own, see the socket.io server instructions.
-		secret: '13652805320794272084', // Obtained from the socket.io server. Gives this (the master) control of the presentation
-		id: '1ea875674b17ca76', // Obtained from socket.io server
-		url: 'https://reveal-js-multiplex-ccjbegmaii.now.sh' // Location of socket.io server
-	},
-
-	// Don't forget to add the dependencies
-	dependencies: [
-		{ src: '//cdn.socket.io/socket.io-1.3.5.js', async: true },
-		{ src: 'plugin/multiplex/master.js', async: true },
-
-		// and if you want speaker notes
-		{ src: 'plugin/notes-server/client.js', async: true }
-
-		// other dependencies...
-	]
-});
-```
-
-#### Client presentation
-Served from a publicly accessible static file server. Examples include: GitHub Pages, Amazon S3, Dreamhost, Akamai, etc. The more reliable, the better. Your audience can then access the client presentation via ```http://example.com/path/to/presentation/client/index.html```, with the configuration below causing them to connect to the socket.io server as clients.
-
-Example configuration:
-```javascript
-Reveal.initialize({
-	// other options...
-
-	multiplex: {
-		// Example values. To generate your own, see the socket.io server instructions.
-		secret: null, // null so the clients do not have control of the master presentation
-		id: '1ea875674b17ca76', // id, obtained from socket.io server
-		url: 'https://reveal-js-multiplex-ccjbegmaii.now.sh' // Location of socket.io server
-	},
-
-	// Don't forget to add the dependencies
-	dependencies: [
-		{ src: '//cdn.socket.io/socket.io-1.3.5.js', async: true },
-		{ src: 'plugin/multiplex/client.js', async: true }
-
-		// other dependencies...
-	]
-});
-```
-
-#### Socket.io server
-Server that receives the slideChanged events from the master presentation and broadcasts them out to the connected client presentations. This needs to be publicly accessible. You can run your own socket.io server with the commands:
-
-1. ```npm install```
-2. ```node plugin/multiplex```
-
-Or you use the socket.io server at [https://reveal-js-multiplex-ccjbegmaii.now.sh/](https://reveal-js-multiplex-ccjbegmaii.now.sh/).
-
-You'll need to generate a unique secret and token pair for your master and client presentations. To do so, visit ```http://example.com/token```, where ```http://example.com``` is the location of your socket.io server. Or if you're going to use the socket.io server at [https://reveal-js-multiplex-ccjbegmaii.now.sh/](https://reveal-js-multiplex-ccjbegmaii.now.sh/), visit [https://reveal-js-multiplex-ccjbegmaii.now.sh/token](https://reveal-js-multiplex-ccjbegmaii.now.sh/token).
-
-You are very welcome to point your presentations at the Socket.io server running at [https://reveal-js-multiplex-ccjbegmaii.now.sh/](https://reveal-js-multiplex-ccjbegmaii.now.sh/), but availability and stability are not guaranteed. For anything mission critical I recommend you run your own server. It is simple to deploy to nodejitsu, heroku, your own environment, etc.
-
-##### socket.io server as file static server
-
-The socket.io server can play the role of static file server for your client presentation, as in the example at [https://reveal-js-multiplex-ccjbegmaii.now.sh/](https://reveal-js-multiplex-ccjbegmaii.now.sh/). (Open [https://reveal-js-multiplex-ccjbegmaii.now.sh/](https://reveal-js-multiplex-ccjbegmaii.now.sh/) in two browsers. Navigate through the slides on one, and the other will update to match.)
-
-Example configuration:
-```javascript
-Reveal.initialize({
-	// other options...
-
-	multiplex: {
-		// Example values. To generate your own, see the socket.io server instructions.
-		secret: null, // null so the clients do not have control of the master presentation
-		id: '1ea875674b17ca76', // id, obtained from socket.io server
-		url: 'example.com:80' // Location of your socket.io server
-	},
-
-	// Don't forget to add the dependencies
-	dependencies: [
-		{ src: '//cdn.socket.io/socket.io-1.3.5.js', async: true },
-		{ src: 'plugin/multiplex/client.js', async: true }
-
-		// other dependencies...
-	]
-```
-
-It can also play the role of static file server for your master presentation and client presentations at the same time (as long as you don't want to use speaker notes). (Open [https://reveal-js-multiplex-ccjbegmaii.now.sh/](https://reveal-js-multiplex-ccjbegmaii.now.sh/) in two browsers. Navigate through the slides on one, and the other will update to match. Navigate through the slides on the second, and the first will update to match.) This is probably not desirable, because you don't want your audience to mess with your slides while you're presenting. ;)
-
-Example configuration:
-```javascript
-Reveal.initialize({
-	// other options...
-
-	multiplex: {
-		// Example values. To generate your own, see the socket.io server instructions.
-		secret: '13652805320794272084', // Obtained from the socket.io server. Gives this (the master) control of the presentation
-		id: '1ea875674b17ca76', // Obtained from socket.io server
-		url: 'example.com:80' // Location of your socket.io server
-	},
-
-	// Don't forget to add the dependencies
-	dependencies: [
-		{ src: '//cdn.socket.io/socket.io-1.3.5.js', async: true },
-		{ src: 'plugin/multiplex/master.js', async: true },
-		{ src: 'plugin/multiplex/client.js', async: true }
-
-		// other dependencies...
-	]
-});
-```
-
-## MathJax
-
-If you want to display math equations in your presentation you can easily do so by including this plugin. The plugin is a very thin wrapper around the [MathJax](http://www.mathjax.org/) library. To use it you'll need to include it as a reveal.js dependency, [find our more about dependencies here](#dependencies).
-
-The plugin defaults to using [LaTeX](http://en.wikipedia.org/wiki/LaTeX) but that can be adjusted through the ```math``` configuration object. Note that MathJax is loaded from a remote server. If you want to use it offline you'll need to download a copy of the library and adjust the ```mathjax``` configuration value.
-
-Below is an example of how the plugin can be configured. If you don't intend to change these values you do not need to include the ```math``` config object at all.
-
-```js
-Reveal.initialize({
-
-	// other options ...
-
-	math: {
-		mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
-		config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
-	},
-
-	dependencies: [
-		{ src: 'plugin/math/math.js', async: true }
-	]
-
-});
-```
-
-Read MathJax's documentation if you need [HTTPS delivery](http://docs.mathjax.org/en/latest/start.html#secure-access-to-the-cdn) or serving of [specific versions](http://docs.mathjax.org/en/latest/configuration.html#loading-mathjax-from-the-cdn) for stability.
-
-
-## Installation
-
-The **basic setup** is for authoring presentations only. The **full setup** gives you access to all reveal.js features and plugins such as speaker notes as well as the development tasks needed to make changes to the source.
-
-### Basic setup
-
-The core of reveal.js is very easy to install. You'll simply need to download a copy of this repository and open the index.html file directly in your browser.
-
-1. Download the latest version of reveal.js from <https://github.com/hakimel/reveal.js/releases>
-
-2. Unzip and replace the example contents in index.html with your own
-
-3. Open index.html in a browser to view it
-
-
-### Full setup
-
-Some reveal.js features, like external Markdown and speaker notes, require that presentations run from a local web server. The following instructions will set up such a server as well as all of the development tasks needed to make edits to the reveal.js source code.
-
-1. Install [Node.js](http://nodejs.org/) (1.0.0 or later)
-
-1. Clone the reveal.js repository
-   ```sh
-   $ git clone https://github.com/hakimel/reveal.js.git
-   ```
-
-1. Navigate to the reveal.js folder
-   ```sh
-   $ cd reveal.js
-   ```
-
-1. Install dependencies
-   ```sh
-   $ npm install
-   ```
-
-1. Serve the presentation and monitor source files for changes
-   ```sh
-   $ npm start
-   ```
-
-1. Open <http://localhost:8000> to view your presentation
-
-   You can change the port by using `npm start -- --port 8001`.
-
-
-### Folder Structure
-- **css/** Core styles without which the project does not function
-- **js/** Like above but for JavaScript
-- **plugin/** Components that have been developed as extensions to reveal.js
-- **lib/** All other third party assets (JavaScript, CSS, fonts)
-
-
-## License
-
-MIT licensed
-
-Copyright (C) 2016 Hakim El Hattab, http://hakim.se
+    # drush mi animals
+    Processed 4 items (4 created, 0 updated, 0 failed, 0 ignored) - done    [status]
+    with 'animals'
+
+<img src='images/csv_result.png'>
+
+
+
+<!-- .slide: data-background-color="#8B7324" -->
+## Migration represented as config
+using migrate_plus
+
+    rcw@mojito:~/migrate_demo/config/install$ cat migrate_plus.migration.animals.yml 
+    # The source data is in CSV files, so we use the 'csv' source plugin.
+    id: animals
+    label: CSV file migration
+    migration_tags:
+      - CSV
+    source:
+      plugin: csv
+      # Full path to the file.
+      path: /var/www/html/modules/migration_dev/migrate_demo/animals.csv
+      header_row_count: 0
+      keys:
+        - id
+      column_names:
+        0:
+          id: Identifier
+    destination:
+      plugin: entity:node
+    process:
+      type:
+        plugin: default_value
+        default_value: article
+      title: id 
+
+
+
+<!-- .slide: data-background-color="#8B7324" -->
+## Manual Method: Further Reading
+
+ - Drupal 6 to Drupal 8(.1.x) Custom Content Migration
+   https://www.drupaleasy.com/blogs/ultimike/2016/04/drupal-6-drupal-81x-custom-content-migration
+
+
+
+<!-- .slide: data-background-color="#8B4524" -->
+## Migrations are Plugins
+
+<blockquote> As a goat, I want to know every detail of what I am working with, extend it in new ways, and contribute back to the community.</blockquote>
+
+A brief introduction to plugins.
+
+
+
+<!-- .slide: data-background-color="#8B4524" -->
+## This whole talk was about Plugins
+
+Who knew?
+
+    rcw@mojito:~/katli/repos/drupal/core/modules/migrate_drupal$ tree
+    .
+    ├── migrate_drupal.info.yml
+    ├── migrate_drupal.module
+    ├── migrate_drupal.services.yml
+    ├── src
+    │   ├── Annotation
+    │   │   └── MigrateCckField.php
+    │   ├── MigrationConfigurationTrait.php
+    │   ├── MigrationCreationTrait.php
+    │   ├── Plugin
+    │   │   ├── migrate
+    │   │   │   ├── cckfield
+    │   │   │   │   └── CckFieldPluginBase.php
+    │   │   │   ├── CckMigration.php
+    │   │   │   ├── destination
+    │   │   │   │   └── EntityFieldStorageConfig.php
+    │   │   │   └── source
+    │   │   │       ├── d6
+    │   │   │       │   └── i18nVariable.php
+    │   │   │       ├── d7
+    │   │   │       │   └── FieldableEntity.php
+    │   │   │       ├── DrupalSqlBase.php
+    │   │   │       ├── EmptySource.php
+    │   │   │       ├── VariableMultiRow.php
+    │   │   │       └── Variable.php
+    │   │   └── MigrateCckFieldInterface.php
+    │   └── Tests
+    │       └── StubTestTrait.php
+    ...
+
+
+
+<!-- .slide: data-background-color="#8B4524" -->
+## Plugin Structure
+
+Single file, no registration, just rebuild cache.
+
+    rcw@mojito:~/katli/repos/drupal/core/modules/migrate/src/Plugin/migrate/process$ cat Concat.php 
+    <?php
+    
+    namespace Drupal\migrate\Plugin\migrate\process;
+    
+    use Drupal\migrate\MigrateException;
+    use Drupal\migrate\MigrateExecutableInterface;
+    use Drupal\migrate\ProcessPluginBase;
+    use Drupal\migrate\Row;
+    
+    /**
+     * Concatenates the strings in the current value.
+     *
+     * @MigrateProcessPlugin(
+     *   id = "concat",
+     *   handle_multiples = TRUE
+     * )
+     */
+    class Concat extends ProcessPluginBase {
+    
+      /**
+       * {@inheritdoc}
+       *
+       * Concatenates the strings in the current value.
+       */
+      public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
+        if (is_array($value)) {
+          $delimiter = isset($this->configuration['delimiter']) ? $this->configuration['delimiter'] : '';
+          return implode($delimiter, $value);
+        }
+        else {
+          throw new MigrateException(sprintf('%s is not an array', var_export($value, TRUE)));
+        }
+      }
+    
+    }
+
+Remember to update the annotation (comment) as it is processed.
+
+
+
+<!-- .slide: data-background-color="#8B4524" -->
+## Plugins: Further Reading
+
+ - Migrate API in Drupal 8
+   https://www.drupal.org/node/2127611
+
+
+
+
+<!-- .slide: data-background-color="#EBEBEB" -->
+## Questions?
+
+https://twitter.com/ryan_weal
+
+https://twitter.com/italiatina
+
+<img src=images/kafei.png>
