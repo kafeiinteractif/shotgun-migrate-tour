@@ -315,6 +315,11 @@ Remember if you created 'upgrade' db in settings.php you can skip the --legacy-d
      upgrade_d6_vocabulary_entity_form_display       Idle    0      0         0                          
      upgrade_menu_links                              Idle    0      0         0         
 
+
+
+<!-- .slide: data-background-color="#718522" -->
+## Hybrid Workflow: Export
+
 Export as config
 
     drush config-export
@@ -370,7 +375,7 @@ Edit migrate_plus.migration.d6_user.yml
 
 
 <!-- .slide: data-background-color="#718522" -->
-## Hybrid Workflow: process 
+## Hybrid Workflow: Process Chain
 
 Implicit get plugin:
 
