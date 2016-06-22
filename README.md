@@ -6,6 +6,9 @@ Kafei Interactive Inc.
 
 2016-06-17 Montréal
 
+Formatted as slides here:
+https://kafeiinteractif.github.io/shotgun-migrate-tour/#/
+
 
 
 
