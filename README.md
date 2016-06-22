@@ -655,3 +655,4 @@ https://twitter.com/ryan_weal
 https://twitter.com/italiatina
 
 <img src=images/kafei.png>
+The Kafei Interactive logo and wordmark is a trademark of Kafei Interactive Inc. (Canada).
