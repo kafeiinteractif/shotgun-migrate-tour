@@ -4,7 +4,8 @@ Ryan Weal & Novella Chiechi
 
 Kafei Interactive Inc.
 
-2016-06-17 Montréal
+2016-09-01 San José, Costa Rica
+2016-06-17 Montréal, Québec, Canada
 
 Formatted as slides here:
 https://kafeiinteractif.github.io/shotgun-migrate-tour/#/
